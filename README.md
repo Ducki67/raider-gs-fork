@@ -1,27 +1,52 @@
-# Raider (3.5)
+# Raider GS — `5.3` branch (Fortnite v5.30 / Chapter 1 Season 5)
 
-- Fortnite 3.5 Custom Gameserver
+> **Nightly build:** check the [Releases](../../releases) tab for `nightly-5.3` — grab `Raider-5.3.dll` and inject.
 
-## - Download
- - You can find and download the most recent build from the stable branch [here](https://nightly.link/kem0x/raider3.5/workflows/msbuild/stable/Release.zip) 
+This is the **5.3** branch of Raider GS, targeting **Fortnite v5.30** (Chapter 1, Season 5).
 
-## - Disclaimer
+---
 
-This project was made for fun and it doesn't aim to harm the original game by any means and is not affiliated, endorsed or connected in any way with Epic Games. 
-This project does **not** allow any paid cosmetics as requested [here](https://media.discordapp.net/attachments/976192654901665832/987031689094119505/unknown.png) by MagmaReef and it doesn't aim to compete with the original game and never will. 
-The project was made by a bunch of passionate Fortnite players who wanted to re-live a small part of their memories on this game.
+## What is this?
 
-If you want to play a full Fortnite experience play on their servers, as this is a recreation and will never be 1:1. 
+Raider GS is a custom game-server DLL that hooks into an offline Fortnite client, routing gameplay traffic locally so you can host private matches without Epic's servers.
 
-If you are an Epic Games employee and you have any problems with this project, please do not hesitate to contact me through your official business email at `kareemolim@gmail.com` or send a message at my discord: `kemo#1337`. 
-We're more than ready to take this project down and we understand and respect any of those requests.
+This branch has been ported and adapted from the raider3.5 base to support the v5.30 client.
 
-<h3 align="center">We ask you to contribute if you can, report issues as this repo is still in active development.</h3>
+---
 
-## - License
+## Supported build
 
-- This project is licensed under the [MIT License](/LICENSE)
+| Target | Version |
+|--------|---------|
+| Fortnite | v5.30 |
+| Season | Chapter 1, Season 5 |
+| Engine | Unreal Engine 4.21 |
 
-## - Discord Server
+---
 
-- Join [here](https://discord.gg/nCSFHtRMUs) to ask some questions about setting up Raider.
+## Usage
+
+1. Download `Raider-5.3.dll` from the [latest nightly release](../../releases/tag/nightly-5.3).
+2. Launch your Fortnite v5.30 client offline.
+3. Inject the DLL with your preferred injector.
+4. Start a backend (e.g. DuckiServer, LawinServer) and connect.
+
+---
+
+## Building from source
+
+**Requirements:** Visual Studio 2022, v143 toolset, Windows SDK 10.0
+
+```
+msbuild /m /p:Configuration=Release Raider.sln
+```
+
+Output: `Raider\bin\Release\Raider.dll`
+
+---
+
+## Disclaimer
+
+This is an unofficial fan project made for nostalgic purposes. It is not affiliated with, endorsed by, or connected to Epic Games in any way. No paid cosmetics are supported or allowed. If you are an Epic Games employee with concerns, please contact `kareemolim@gmail.com`. We will honour takedown requests.
+
+Licensed under the [MIT License](LICENSE).
