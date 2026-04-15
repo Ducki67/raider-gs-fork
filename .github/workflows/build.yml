@@ -1,0 +1,58 @@
+name: Build & Nightly Release
+
+on:
+  push:
+    branches:
+      - stable
+      - '4.1'
+      - '5.3'
+      - dev
+      - kyiro
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore .
+
+      - name: Build
+        run: msbuild /m /p:Configuration=Release .
+
+      - name: Stage artifact
+        id: prep
+        shell: pwsh
+        run: |
+          $branch = "${{ github.ref_name }}" -replace '[/\\]', '-'
+          $sha    = "${{ github.sha }}".Substring(0, 7)
+          $file   = "Raider-${branch}.dll"
+          Copy-Item "Raider\bin\Release\Raider.dll" $file
+          "branch=$branch" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "sha=$sha"       | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "file=$file"     | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Publish nightly release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: nightly-${{ steps.prep.outputs.branch }}
+          name: "Nightly | ${{ github.ref_name }} | ${{ steps.prep.outputs.sha }}"
+          body: |
+            **Auto-build** from branch `${{ github.ref_name }}`
+            Commit: `${{ github.sha }}`
+            Built: ${{ github.event.head_commit.timestamp }}
+
+            > Drop `${{ steps.prep.outputs.file }}` into your injector and point it at Fortnite.
+          prerelease: true
+          allowUpdates: true
+          removeArtifacts: true
+          artifacts: ${{ steps.prep.outputs.file }}
+          token: ${{ secrets.GITHUB_TOKEN }}
