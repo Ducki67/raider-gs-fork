@@ -21,7 +21,7 @@ This branch was based on [kem0x/raider3.5](https://github.com/kem0x/raider3.5) a
 |--------|---------|
 | Fortnite | v3.5 (CL 3724489) |
 | Season | Chapter 1, Season 3 |
-| Engine | Unreal Engine 4.19 |
+| Engine | Unreal Engine 4.20 |
 
 ---
 
